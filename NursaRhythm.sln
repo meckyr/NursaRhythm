@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NursaRhythm", "NursaRhythm\NursaRhythm\NursaRhythm.csproj", "{D28F6FED-86C9-4429-B5D1-8C0508B74BD6}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "NursaRhythmContent", "NursaRhythm\NursaRhythmContent\NursaRhythmContent.contentproj", "{9D00EA3F-34D3-4B76-98D0-98E5D2AA74F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Windows Phone = Debug|Windows Phone
+		Release|Windows Phone = Release|Windows Phone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D28F6FED-86C9-4429-B5D1-8C0508B74BD6}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{D28F6FED-86C9-4429-B5D1-8C0508B74BD6}.Debug|Windows Phone.Build.0 = Debug|Windows Phone
+		{D28F6FED-86C9-4429-B5D1-8C0508B74BD6}.Debug|Windows Phone.Deploy.0 = Debug|Windows Phone
+		{D28F6FED-86C9-4429-B5D1-8C0508B74BD6}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+		{D28F6FED-86C9-4429-B5D1-8C0508B74BD6}.Release|Windows Phone.Build.0 = Release|Windows Phone
+		{D28F6FED-86C9-4429-B5D1-8C0508B74BD6}.Release|Windows Phone.Deploy.0 = Release|Windows Phone
+		{9D00EA3F-34D3-4B76-98D0-98E5D2AA74F1}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{9D00EA3F-34D3-4B76-98D0-98E5D2AA74F1}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
