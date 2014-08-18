@@ -11,18 +11,22 @@ namespace NursaRhythm.Tools
     class GameButton : GameSprite
     {
         private bool isSpriteSheet;
+        private bool isOutside;
         private Rectangle? normalRect, pressedRect;
         private bool isPressed;
         private int touchId;
+
+        private Vector2 center = new Vector2(400, 240);
 
         public event Action OnClick;
         public event Action OnEnter;
         public event Action OnLeave;
 
-        public GameButton(string assetfile, bool isspritesheet)
+        public GameButton(string assetfile, bool isspritesheet, bool isoutside)
             : base(assetfile)
         {
             isSpriteSheet = isspritesheet;
+            isOutside = isoutside;
         }
 
         public void BackToNormal()
@@ -55,7 +59,12 @@ namespace NursaRhythm.Tools
 
                 foreach (var location in touchStates)
                 {
-                    if (HitTest(location.Position, false))
+                    var touchPosition = location.Position;
+
+                    if (isOutside)
+                        touchPosition = location.Position + (CameraManager.getInstance().camera.Position - center);
+
+                    if (HitTest(touchPosition, false))
                     {
                         isPressed = true;
                         touchId = location.Id;
@@ -71,8 +80,12 @@ namespace NursaRhythm.Tools
             else
             {
                 var location = touchStates.FirstOrDefault(tloc => tloc.Id == touchId);
+                var touchPosition = location.Position;
 
-                if (location == null || !HitTest(location.Position, false))
+                if (isOutside)
+                    touchPosition = location.Position + (CameraManager.getInstance().camera.Position - center);
+
+                if (location == null || !HitTest(touchPosition, false))
                 {
                     touchId = -1;
                     isPressed = false;

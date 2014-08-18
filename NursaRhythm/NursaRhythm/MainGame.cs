@@ -128,9 +128,12 @@ namespace NursaRhythm
                 }
                 else if (SceneManager.ActiveScene.SceneName == "LevelSelect")
                 {
-                    SceneManager.push.Play();
-                    SceneManager.SetActiveScene("MainMenu");
-                    SceneManager.ActiveScene.ResetScene();
+                    if (SceneManager.ActiveScene.BackPressed())
+                    {
+                        SceneManager.push.Play();
+                        SceneManager.SetActiveScene("MainMenu");
+                        SceneManager.ActiveScene.ResetScene();
+                    }
                 }
                 else if (SceneManager.ActiveScene.SceneName == "Level1")
                 {

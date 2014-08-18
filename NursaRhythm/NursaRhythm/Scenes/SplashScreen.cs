@@ -15,7 +15,6 @@ namespace NursaRhythm.Scenes
 
         private int alphaValue = 255;
         private int fadeIncrement = 20;
-
         private double fadeDelay = 2;
 
         public SplashScreen()
