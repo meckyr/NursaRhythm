@@ -12,9 +12,12 @@ namespace NursaRhythm.Tools
     {
         private bool isSpriteSheet;
         private bool isOutside;
+        private bool isOriginCenter;
         private Rectangle? normalRect, pressedRect;
         private bool isPressed;
         private int touchId;
+
+        private Vector2 offset;
 
         private Vector2 center = new Vector2(400, 240);
 
@@ -22,11 +25,22 @@ namespace NursaRhythm.Tools
         public event Action OnEnter;
         public event Action OnLeave;
 
-        public GameButton(string assetfile, bool isspritesheet, bool isoutside)
+        public GameButton(string assetfile, bool isspritesheet, bool isoutside, bool isorigincenter)
             : base(assetfile)
         {
             isSpriteSheet = isspritesheet;
             isOutside = isoutside;
+            isOriginCenter = isorigincenter;
+        }
+
+        public GameButton(string assetfile, bool isspritesheet, bool isoutside, bool isorigincenter, Vector2 offset)
+            : base(assetfile)
+        {
+            isSpriteSheet = isspritesheet;
+            isOutside = isoutside;
+            isOriginCenter = isorigincenter;
+
+            this.offset = offset;
         }
 
         public void BackToNormal()
@@ -40,12 +54,12 @@ namespace NursaRhythm.Tools
 
             if (isSpriteSheet)
             {
-                CreateBoundingRect((int)Width, (int)Height / 2, false);
+                CreateBoundingRect((int)Width, (int)Height / 2, offset, isOriginCenter);
                 normalRect = new Rectangle(0, 0, (int)Width, (int)(Height / 2f));
                 pressedRect = new Rectangle(0, (int)(Height / 2f), (int)Width, (int)(Height / 2f));
             }
             else
-                CreateBoundingRect((int)Width, (int)Height, false);
+                CreateBoundingRect((int)Width, (int)Height, offset, isOriginCenter);
         }
 
         public override void Update(RenderContext renderContext)

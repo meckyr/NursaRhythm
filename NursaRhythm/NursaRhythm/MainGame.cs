@@ -37,6 +37,8 @@ namespace NursaRhythm
             graphics.IsFullScreen = true;
             // Set orientation & size
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 480;
 
             // Frame rate is 30 fps by default for Windows Phone.
             TargetElapsedTime = TimeSpan.FromTicks(333333);
@@ -137,10 +139,11 @@ namespace NursaRhythm
                 }
                 else if (SceneManager.ActiveScene.SceneName == "Level1")
                 {
-                    SceneManager.push.Play();
-                    SceneManager.SetActiveScene("LevelSelect");
-                    SceneManager.ActiveScene.ResetScene();
-                    SceneManager.PlaySong(1);
+                    this.Exit();
+                    //SceneManager.push.Play();
+                    //SceneManager.SetActiveScene("LevelSelect");
+                    //SceneManager.ActiveScene.ResetScene();
+                    //SceneManager.PlaySong(1);
                 }
             }
 

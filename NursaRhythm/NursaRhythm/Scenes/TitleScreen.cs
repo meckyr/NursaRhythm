@@ -12,11 +12,10 @@ namespace NursaRhythm.Scenes
 {
     class TitleScreen : GameScene
     {
-        private GameSprite bg;
-        private GameAnimatedSprite logo, text;
-
-        private const double Delay = 2.5f;
-        private double delay = Delay;
+        private GameSprite light, logo;
+        private GameAnimatedSprite scroll, scrollUp;
+        private GameButton tap;
+        private Background0 bg;
 
         public TitleScreen()
             : base("TitleScreen")
@@ -25,18 +24,44 @@ namespace NursaRhythm.Scenes
 
         public override void Initialize()
         {
-            bg = new GameSprite("title\\background");
+            bg = new Background0();
             AddSceneObject(bg);
 
-            logo = new GameAnimatedSprite("title\\logo", 4, 120, new Point(650, 250), 2);
-            logo.PlayAnimation(false);
-            logo.Translate(75, 100);
+            light = new GameSprite("title\\lighting");
+            AddSceneObject(light);
+
+            scroll = new GameAnimatedSprite("title\\scroll", 6, 80, new Point(640, 384), 3);
+            scroll.Scale(1.25f, 1.25f);
+            scroll.PlayAnimation(true);
+            AddSceneObject(scroll);
+
+            scrollUp = new GameAnimatedSprite("title\\scrollup", 6, 80, new Point(640, 384), 3);
+            scrollUp.Scale(1.25f, 1.25f);
+            scrollUp.CanDraw = false;
+            AddSceneObject(scrollUp);
+
+            logo = new GameSprite("title\\logo");
+            logo.Origin = new Vector2(275.5f, 74.5f);
+            logo.Translate(400, 240);
+            logo.Scale(0.8f, 0.8f);
             AddSceneObject(logo);
 
-            text = new GameAnimatedSprite("title\\text", 4, 100, new Point(250, 100), 1);
-            text.PlayAnimation(true);
-            text.Translate(290, 350);
-            AddSceneObject(text);
+            tap = new GameButton("title\\tap", true, false, true);
+            tap.Origin = new Vector2(127.5f, 32);
+            tap.Translate(400, 400);
+            tap.OnClick += () =>
+            {
+                SceneManager.whoosh.Play();
+                bg.UpdateBackgroundSpeed(0);
+
+                tap.CanDraw = false;
+                scroll.CanDraw = false;
+                logo.CanDraw = false;
+
+                scrollUp.CanDraw = true;
+                scrollUp.PlayAnimation(false);
+            };
+            AddSceneObject(tap);
 
             base.Initialize();
         }
@@ -48,16 +73,7 @@ namespace NursaRhythm.Scenes
 
         public override void Update(RenderContext rendercontext, ContentManager contentmanager)
         {
-            if ((delay > 0) && (!logo.IsPlaying))
-                delay -= rendercontext.GameTime.ElapsedGameTime.TotalSeconds;
-
-            if (delay <= 0)
-            {
-                logo.PlayAnimation(false);
-                delay = Delay;
-            }
-
-            if (rendercontext.TouchPanelState.Count > 0 && rendercontext.TouchPanelState[0].State == TouchLocationState.Released)
+            if (!scrollUp.IsPlaying)
             {
                 SceneManager.push.Play();
                 SceneManager.SetActiveScene("MainMenu");

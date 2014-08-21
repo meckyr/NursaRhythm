@@ -32,7 +32,7 @@ namespace NursaRhythm.Scenes
             bg = new GameSprite("menu\\background");
             AddSceneObject(bg);
 
-            play = new GameButton("menu\\playbutton", true, false);
+            play = new GameButton("menu\\playbutton", true, false, false);
             play.Translate(120, 100);
             play.CanDraw = false;
             play.OnClick += () =>
@@ -61,7 +61,7 @@ namespace NursaRhythm.Scenes
             play_a.PlayAnimation(true);
             AddSceneObject(play_a);
 
-            setting = new GameButton("menu\\settingbutton", true, false);
+            setting = new GameButton("menu\\settingbutton", true, false, false);
             setting.Translate(120, 210);
             setting.CanDraw = false;
             setting.OnClick += () =>
@@ -90,7 +90,7 @@ namespace NursaRhythm.Scenes
             setting_a.PlayAnimation(true);
             AddSceneObject(setting_a);
 
-            score = new GameButton("menu\\scorebutton", true, false);
+            score = new GameButton("menu\\scorebutton", true, false, false);
             score.Translate(120, 300);
             score.CanDraw = false;
             score.OnClick += () =>
@@ -117,7 +117,7 @@ namespace NursaRhythm.Scenes
             score_a.PlayAnimation(true);
             AddSceneObject(score_a);
 
-            codex = new GameButton("menu\\scorebutton", true, false);
+            codex = new GameButton("menu\\scorebutton", true, false, false);
             codex.Translate(120, 380);
             codex.CanDraw = false;
             codex.OnClick += () =>

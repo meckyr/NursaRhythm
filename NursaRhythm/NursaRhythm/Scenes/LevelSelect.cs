@@ -31,8 +31,6 @@ namespace NursaRhythm.Scenes
 
         public override void Initialize()
         {
-            TouchPanel.EnabledGestures = GestureType.FreeDrag;
-
             bg = new GameSprite("select\\background");
             AddSceneObject(bg);
 
@@ -45,7 +43,7 @@ namespace NursaRhythm.Scenes
             level1.PlayAnimation(true);
             AddSceneObject(level1);
 
-            level1_b = new GameButton("select\\obstaclebutton", false, true);
+            level1_b = new GameButton("select\\obstaclebutton", false, true, false);
             level1_b.Translate(1000, 1000);
             level1_b.CanDraw = false;
             level1_b.OnClick += () =>
@@ -77,7 +75,7 @@ namespace NursaRhythm.Scenes
             level2.PlayAnimation(true);
             AddSceneObject(level2);
 
-            level2_b = new GameButton("select\\obstaclebutton", false, true);
+            level2_b = new GameButton("select\\obstaclebutton", false, true, false);
             level2_b.Translate(500, 500);
             level2_b.CanDraw = false;
             level2_b.OnClick += () =>
@@ -107,9 +105,9 @@ namespace NursaRhythm.Scenes
             text = new SpriteFonts("font\\font");
             text.Translate(10, 10);
             text.Text = "Select Level";
-            AddHUDObject(text);
+            AddHUDObjectFront(text);
 
-            play = new GameButton("select\\playbutton", true, false);
+            play = new GameButton("select\\playbutton", true, false, false);
             play.Translate(500, 350);
             play.CanDraw = false;
             play.OnClick += () =>
@@ -117,8 +115,9 @@ namespace NursaRhythm.Scenes
                 if (isLevelSelected)
                 {
                     SceneManager.push.Play();
-                    //SceneManager.SetActiveScene("LevelSelect");
-                    //SceneManager.ActiveScene.ResetScene();
+                    SceneManager.SetActiveScene("Level1");
+                    SceneManager.ActiveScene.ResetScene();
+                    SceneManager.PlaySong(2);
 
                     play_a.CanDraw = true;
                     play.CanDraw = false;
@@ -140,13 +139,13 @@ namespace NursaRhythm.Scenes
                     play.CanDraw = false;
                 }
             };
-            AddHUDObject(play);
+            AddHUDObjectFront(play);
 
             play_a = new GameAnimatedSprite("select\\playbuttonanimated", 4, 150, new Point(250, 100), 1);
             play_a.Translate(500, 350);
             play_a.PlayAnimation(true);
             play_a.CanDraw = false;
-            AddHUDObject(play_a);
+            AddHUDObjectFront(play_a);
         }
 
         public override void LoadContent(ContentManager contentmanager)
@@ -156,6 +155,8 @@ namespace NursaRhythm.Scenes
 
         public override void Update(RenderContext rendercontext, ContentManager contentmanager)
         {
+            TouchPanel.EnabledGestures = GestureType.FreeDrag;
+
             UpdateInput();
 
             base.Update(rendercontext, contentmanager);
@@ -193,6 +194,8 @@ namespace NursaRhythm.Scenes
                 isLevelSelected = false;
 
                 CameraManager.getInstance().camera.Focus = pole;
+                CameraManager.getInstance().camera.IsIgnoreY = false;
+                CameraManager.getInstance().camera.ResetScreenCenter();
 
                 return false;
             }

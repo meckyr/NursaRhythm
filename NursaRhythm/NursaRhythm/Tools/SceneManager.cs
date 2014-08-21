@@ -140,8 +140,8 @@ namespace NursaRhythm.Tools
             sux = contentmanager.Load<SoundEffect>("sfx\\sux");
             ignition = contentmanager.Load<SoundEffect>("sfx\\ignition");
 
-            mainmusic = contentmanager.Load<Song>("song\\mainmusic2");
-            levelmusic = contentmanager.Load<Song>("song\\levelmusic2");
+            mainmusic = contentmanager.Load<Song>("song\\menu");
+            levelmusic = contentmanager.Load<Song>("song\\level1");
 
             GameScenes.ForEach(scene => scene.LoadContent(contentmanager));
             //GameScenes.ForEach(scene => scene.LoadParticle(contentmanager, RenderContext.particleRenderer));
@@ -169,6 +169,10 @@ namespace NursaRhythm.Tools
                         scene.SceneName.Equals("LevelSelect"));
                     chosenscene.Update(RenderContext, contentmanager);
 
+                    chosenscene = GameScenes.FirstOrDefault(scene =>
+                        scene.SceneName.Equals("Level1"));
+                    chosenscene.Update(RenderContext, contentmanager);
+
                     IsInitialized = true;
                 }
             }
@@ -185,6 +189,11 @@ namespace NursaRhythm.Tools
                 //    ActiveScene.DrawBGParticle(RenderContext);
                 //}
 
+                //draw HUD Belakang
+                RenderContext.SpriteBatch.Begin();
+                ActiveScene.DrawHUDBack(RenderContext);
+                RenderContext.SpriteBatch.End();
+
                 if (CameraManager.getInstance().camera.Focus == null)
                 {
                     RenderContext.SpriteBatch.Begin();
@@ -198,9 +207,9 @@ namespace NursaRhythm.Tools
                     RenderContext.SpriteBatch.End();
                 }
 
-                //draw HUD
+                //draw HUD Depan
                 RenderContext.SpriteBatch.Begin();
-                ActiveScene.DrawHUD(RenderContext);
+                ActiveScene.DrawHUDFront(RenderContext);
                 RenderContext.SpriteBatch.End();
 
                 //ActiveScene.DrawParticle(RenderContext);

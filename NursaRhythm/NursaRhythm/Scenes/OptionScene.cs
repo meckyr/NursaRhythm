@@ -21,7 +21,7 @@ namespace NursaRhythm.Scenes
 
         public override void Initialize()
         {
-            bg = new GameSprite("menu\\background");
+            bg = new GameSprite("option\\background");
             AddSceneObject(bg);
 
             base.Initialize();
