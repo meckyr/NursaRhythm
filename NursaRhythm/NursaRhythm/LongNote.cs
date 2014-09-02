@@ -43,10 +43,10 @@ namespace NursaRhythm
             block.CanDraw = false;
             AddChild(block);
 
-            noteIn = new Note(position);
+            noteIn = new Note(position, "level1\\note");
             AddChild(noteIn);
 
-            noteOut = new Note(position + scale * new Vector2(50, 0));
+            noteOut = new Note(position + scale * new Vector2(50, 0), "level1\\noteend");
             AddChild(noteOut);
 
             base.Initialize();
@@ -78,7 +78,7 @@ namespace NursaRhythm
 
             if (CurrentState == NoteState.Enter)
             {
-                block.Color = Color.Green;
+                block.Color = Color.SaddleBrown;
 
                 if (!block.HitTest(targetPos) && !noteIn.Sprite.HitTest(targetPos) && !noteOut.Sprite.HitTest(targetPos))
                 {
@@ -87,7 +87,7 @@ namespace NursaRhythm
                 }
             }
             else
-                block.Color = Color.Yellow;
+                block.Color = Color.White;
 
             base.Update(renderContext);
         }

@@ -14,12 +14,18 @@ namespace NursaRhythm.Scenes
     class LevelSelect : GameScene
     {
         private GameSprite bg;
+
+        // box info
+        private SpriteFonts text, region, song;
+        private GameSprite box, star1, star2, star3, line1, line2;
         private GameButton play;
-        private GameAnimatedSprite play_a;
-        private GameAnimatedSprite level1, level2;
-        private GameButton level1_b, level2_b;
+        
+        //level
+        private GameAnimatedSprite level1;
+        private GameButton level1_b;
+        private GameSprite level2, level3, level4;
+        
         private GameObject2D pole;
-        private SpriteFonts text;
 
         private const float Acceleration = -1.5f;
         private bool isLevelSelected = false;
@@ -32,83 +38,129 @@ namespace NursaRhythm.Scenes
         public override void Initialize()
         {
             bg = new GameSprite("select\\background");
+            bg.Scale(0.5f, 0.5f);
             AddSceneObject(bg);
 
             pole = new GameObject2D();
             pole.Translate(400, 240);
             AddSceneObject(pole);
 
-            level1 = new GameAnimatedSprite("select\\obstacle", 4, 80, new Point(80, 80));
-            level1.Translate(1000, 1000);
-            level1.PlayAnimation(true);
+            level1 = new GameAnimatedSprite("select\\levelunlockanimated", 4, 80, new Point(78, 76));
+            level1.Origin = new Vector2(39, 38);
+            level1.Translate(811, 597);
             AddSceneObject(level1);
 
-            level1_b = new GameButton("select\\obstaclebutton", false, true, false);
-            level1_b.Translate(1000, 1000);
-            level1_b.CanDraw = false;
+            level2 = new GameSprite("select\\levellock");
+            level2.Origin = new Vector2(39, 38);
+            level2.Translate(800, 778);
+            AddSceneObject(level2);
+
+            level3 = new GameSprite("select\\levellock");
+            level3.Origin = new Vector2(39, 38);
+            level3.Translate(693, 755);
+            AddSceneObject(level3);
+
+            level4 = new GameSprite("select\\levellock");
+            level4.Origin = new Vector2(39, 38);
+            level4.Translate(1083, 831);
+            AddSceneObject(level4);
+
+            level1_b = new GameButton("select\\levelunlock", false, true, true);
+            level1_b.Origin = new Vector2(39, 38);
+            level1_b.Translate(811, 597);
             level1_b.OnClick += () =>
             {
                 if (!isLevelSelected)
                 {
-                    SceneManager.whoosh.Play();
-
+                    SceneManager.push.Play();
+                    CameraManager.getInstance().camera.SetScreenCenter(4, 2);
                     CameraManager.getInstance().camera.Focus = level1_b;
-                    level1.CanDraw = false;
-                    level1_b.CanDraw = true;
 
-                    play_a.CanDraw = true;
-                    play.CanDraw = false;
+                    level1.PlayAnimation(true);
+                    SetBoxDraw(true);
 
                     isLevelSelected = true;
                 }
-            };
-            level1_b.OnEnter += () =>
-            {
-            };
-            level1_b.OnLeave += () =>
-            {
             };
             AddSceneObject(level1_b);
 
-            level2 = new GameAnimatedSprite("select\\obstacle", 4, 80, new Point(80, 80));
-            level2.Translate(500, 500);
-            level2.PlayAnimation(true);
-            AddSceneObject(level2);
+            InitiateBox();
+        }
 
-            level2_b = new GameButton("select\\obstaclebutton", false, true, false);
-            level2_b.Translate(500, 500);
-            level2_b.CanDraw = false;
-            level2_b.OnClick += () =>
-            {
-                if (!isLevelSelected)
-                {
-                    SceneManager.whoosh.Play();
+        public void SetBoxDraw(bool canDraw)
+        {
+            play.CanDraw = canDraw;
+            box.CanDraw = canDraw;
+            star1.CanDraw = canDraw;
+            star2.CanDraw = canDraw;
+            star3.CanDraw = canDraw;
+            line1.CanDraw = canDraw;
+            line2.CanDraw = canDraw;
+            region.CanDraw = canDraw;
+            song.CanDraw = canDraw;
+        }
 
-                    CameraManager.getInstance().camera.Focus = level2_b;
-                    level2.CanDraw = false;
-                    level2_b.CanDraw = true;
+        public void InitiateBox()
+        {
+            box = new GameSprite("select\\infobox");
+            box.Origin = new Vector2(182.5f, 182.5f);
+            box.Translate(550, 220);
+            box.CanDraw = false;
+            AddHUDObjectFront(box);
 
-                    play_a.CanDraw = true;
-                    play.CanDraw = false;
+            star1 = new GameSprite("select\\star1");
+            star1.Origin = new Vector2(36.5f, 36.5f);
+            star1.Translate(550, 290);
+            star1.CanDraw = false;
+            AddHUDObjectFront(star1);
 
-                    isLevelSelected = true;
-                }
-            };
-            level2_b.OnEnter += () =>
-            {
-            };
-            level2_b.OnLeave += () =>
-            {
-            };
-            AddSceneObject(level2_b);
+            star2 = new GameSprite("select\\star1");
+            star2.Origin = new Vector2(36.5f, 36.5f);
+            star2.Translate(480, 290);
+            star2.CanDraw = false;
+            AddHUDObjectFront(star2);
+
+            star3 = new GameSprite("select\\star1");
+            star3.Origin = new Vector2(36.5f, 36.5f);
+            star3.Translate(620, 290);
+            star3.CanDraw = false;
+            AddHUDObjectFront(star3);
+
+            song = new SpriteFonts("font\\fontbold");
+            song.Translate(435, 95);
+            song.Color = Color.SaddleBrown;
+            song.Text = "AMPAR-AMPAR\n         PISANG";
+            song.CanDraw = false;
+            AddHUDObjectFront(song);
+
+            line1 = new GameSprite("select\\line");
+            line1.Origin = new Vector2(132, 4.5f);
+            line1.Translate(550, 180);
+            line1.CanDraw = false;
+            AddHUDObjectFront(line1);
+
+            region = new SpriteFonts("font\\font");
+            region.Translate(440, 195);
+            region.Color = Color.SaddleBrown;
+            region.Text = "South Kalimantan";
+            region.CanDraw = false;
+            AddHUDObjectFront(region);
+
+            line2 = new GameSprite("select\\line");
+            line2.Origin = new Vector2(132, 4.5f);
+            line2.Translate(550, 240);
+            line2.CanDraw = false;
+            AddHUDObjectFront(line2);
 
             text = new SpriteFonts("font\\font");
-            text.Translate(10, 10);
-            text.Text = "Select Level";
+            text.Translate(15, 15);
+            text.Color = Color.SaddleBrown;
+            text.Text = "Select Level/Region...";
             AddHUDObjectFront(text);
 
-            play = new GameButton("select\\playbutton", true, false, false);
-            play.Translate(500, 350);
+            play = new GameButton("select\\playbutton", true, false, true);
+            play.Origin = new Vector2(90.5f, 44.5f);
+            play.Translate(550, 385);
             play.CanDraw = false;
             play.OnClick += () =>
             {
@@ -119,33 +171,10 @@ namespace NursaRhythm.Scenes
                     SceneManager.ActiveScene.ResetScene();
                     SceneManager.PlaySong(2);
 
-                    play_a.CanDraw = true;
-                    play.CanDraw = false;
-                }
-            };
-            play.OnEnter += () =>
-            {
-                if (isLevelSelected)
-                {
-                    play_a.CanDraw = false;
-                    play.CanDraw = true;
-                }
-            };
-            play.OnLeave += () =>
-            {
-                if (isLevelSelected)
-                {
-                    play_a.CanDraw = true;
                     play.CanDraw = false;
                 }
             };
             AddHUDObjectFront(play);
-
-            play_a = new GameAnimatedSprite("select\\playbuttonanimated", 4, 150, new Point(250, 100), 1);
-            play_a.Translate(500, 350);
-            play_a.PlayAnimation(true);
-            play_a.CanDraw = false;
-            AddHUDObjectFront(play_a);
         }
 
         public override void LoadContent(ContentManager contentmanager)
@@ -159,6 +188,11 @@ namespace NursaRhythm.Scenes
 
             UpdateInput();
 
+            if (bg.LocalScale.X <= 1 && bg.LocalScale.Y <= 1)
+            {
+                bg.LocalScale += new Vector2(0.05f, 0.05f);
+            }
+
             base.Update(rendercontext, contentmanager);
         }
 
@@ -170,26 +204,21 @@ namespace NursaRhythm.Scenes
         public override void ResetScene()
         {
             CameraManager.getInstance().camera.Focus = pole;
+            bg.Scale(0.5f, 0.5f);
+            pole.Translate(400, 240);
         }
 
         public override bool BackPressed()
         {
             if (!isLevelSelected)
-            {
-                SceneManager.push.Play();
                 return true;
-            }
             else
             {
                 SceneManager.push.Play();
 
-                play_a.CanDraw = false;
-                play.CanDraw = false;
+                SetBoxDraw(false);
 
-                level1_b.CanDraw = false;
-                level1.CanDraw = true;
-                level2_b.CanDraw = false;
-                level2.CanDraw = true;
+                level1.StopAnimation();
 
                 isLevelSelected = false;
 

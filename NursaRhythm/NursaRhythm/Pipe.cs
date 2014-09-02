@@ -10,7 +10,7 @@ namespace NursaRhythm
     class Pipe : GameObject2D
     {
         private const float BackgroundSpeed = 5.0f;
-        private GameSprite bg1, bg2;
+        private GameSprite bg1, bg2, road;
 
         private string assetName;
         private float posY;
@@ -21,17 +21,27 @@ namespace NursaRhythm
             posY = posy;
         }
 
+        public void SetHealth(byte value)
+        {
+            bg1.Color = new Color(255, value, value) * 0.5f;
+            bg2.Color = new Color(255, value, value) * 0.5f;
+        }
+
         public override void Initialize()
         {
             bg1 = new GameSprite(assetName);
             bg1.Translate(0, posY);
-            bg1.Color = Color.White * 0.2f;
+            bg1.Color = Color.White * 0.5f;
             AddChild(bg1);
 
             bg2 = new GameSprite(assetName);
             bg2.Translate(800, posY);
-            bg2.Color = Color.White * 0.2f;
+            bg2.Color = Color.White * 0.5f;
             AddChild(bg2);
+
+            road = new GameSprite("level1\\road");
+            road.Translate(73, posY);
+            AddChild(road);
 
             base.Initialize();
         }

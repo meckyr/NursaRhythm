@@ -190,10 +190,10 @@ namespace NursaRhythm.Tools
                 Children.ForEach(child => { if (child.CanDraw) child.Draw(renderContext); });
 
             // Draw BoundingRect (optional)
-            if (CanDraw && BoundingRect.HasValue)
-            {
-                BoundingRect.Value.Draw(renderContext, Color.Red);
-            }
+            //if (CanDraw && BoundingRect.HasValue)
+            //{
+            //    BoundingRect.Value.Draw(renderContext, Color.Red);
+            //}
         }
 
         public Vector2 Position

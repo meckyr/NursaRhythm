@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Audio;
 
 namespace NursaRhythm.Scenes
 {
     class TitleScreen : GameScene
     {
-        private GameSprite light, logo;
+        private GameSprite light, logo, back;
         private GameAnimatedSprite scroll, scrollUp;
         private GameButton tap;
         private Background0 bg;
@@ -29,6 +30,10 @@ namespace NursaRhythm.Scenes
 
             light = new GameSprite("title\\lighting");
             AddSceneObject(light);
+
+            back = new GameSprite("title\\background");
+            back.CanDraw = false;
+            AddSceneObject(back);
 
             scroll = new GameAnimatedSprite("title\\scroll", 6, 80, new Point(640, 384), 3);
             scroll.Scale(1.25f, 1.25f);
@@ -47,13 +52,14 @@ namespace NursaRhythm.Scenes
             AddSceneObject(logo);
 
             tap = new GameButton("title\\tap", true, false, true);
-            tap.Origin = new Vector2(127.5f, 32);
+            tap.Origin = new Vector2(191.5f, 32);
             tap.Translate(400, 400);
             tap.OnClick += () =>
             {
-                SceneManager.whoosh.Play();
+                SceneManager.paper.Play();
                 bg.UpdateBackgroundSpeed(0);
 
+                back.CanDraw = true;
                 tap.CanDraw = false;
                 scroll.CanDraw = false;
                 logo.CanDraw = false;
@@ -73,9 +79,8 @@ namespace NursaRhythm.Scenes
 
         public override void Update(RenderContext rendercontext, ContentManager contentmanager)
         {
-            if (!scrollUp.IsPlaying)
+            if (scrollUp.CurrentFrame == 5)
             {
-                SceneManager.push.Play();
                 SceneManager.SetActiveScene("MainMenu");
                 SceneManager.ActiveScene.ResetScene();
             }

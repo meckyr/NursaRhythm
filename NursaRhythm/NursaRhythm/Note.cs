@@ -11,11 +11,12 @@ namespace NursaRhythm
 {
     class Note : GameObject2D
     {
-        private GameAnimatedSprite note;
+        private GameSprite note;
         public GameSprite Sprite { get { return note; } }
 
         private Vector2 position;
         private Vector2 targetPos;
+        private string fileName;
 
         public NoteState CurrentState = NoteState.Normal;
         public enum NoteState
@@ -24,17 +25,17 @@ namespace NursaRhythm
             Passed
         }
 
-        public Note(Vector2 pos)
+        public Note(Vector2 pos, string filename)
         {
             position = pos;
+            fileName = filename;
         }
 
         public override void Initialize()
         {
-            note = new GameAnimatedSprite("level1\\note", 4, 80, new Point(80, 80));
-            note.Origin = new Vector2(40, 40);
+            note = new GameSprite(fileName);
+            note.Origin = new Vector2(25, 25);
             note.Translate(position);
-            note.PlayAnimation(true);
             note.CreateBoundingRect(50, 50, true);
             note.CanDraw = false;
             AddChild(note);
@@ -54,7 +55,7 @@ namespace NursaRhythm
 
         public override void Update(RenderContext renderContext)
         {
-            if ((position.X <= (targetPos.X + 800) && position.X >= (targetPos.X - 400)))
+            if ((position.X <= (targetPos.X + 600) && position.X >= (targetPos.X - 100)))
             {
                 note.CanDraw = true;
             }
@@ -88,11 +89,11 @@ namespace NursaRhythm
 
                     float area = width * height;
 
-                    if (area > 300)
+                    if (area > 100)
                     {
                         if (area > 800)
                         {
-                            if (area >= 1600)
+                            if (area >= 1500)
                             {
                                 CurrentState = NoteState.Passed;
                                 return 1;

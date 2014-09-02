@@ -42,8 +42,8 @@ namespace NursaRhythm.Tools
         /// </summary>
         public override void Initialize()
         {
-            _viewportWidth = Game.GraphicsDevice.Viewport.Width;
-            _viewportHeight = Game.GraphicsDevice.Viewport.Height;
+            _viewportWidth = 800;
+            _viewportHeight = 480;
             _position = new Vector2(_viewportWidth / 2, _viewportHeight / 2);
             ScreenCenter = new Vector2(_viewportWidth / 2, _viewportHeight / 2);
             Scale = 1;

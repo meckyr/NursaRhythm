@@ -61,15 +61,17 @@ namespace NursaRhythm
         {
             // TODO: Add your initialization logic here
             // Add semua scene yang ada
-            SceneManager.AddGameScene(new SplashScreen());
+            SceneManager.AddGameScene(new SplashScreen1());
+            SceneManager.AddGameScene(new SplashScreen2());
             SceneManager.AddGameScene(new TitleScreen());
             SceneManager.AddGameScene(new MainMenu());
             SceneManager.AddGameScene(new OptionScene());
             SceneManager.AddGameScene(new LevelSelect());
-            SceneManager.AddGameScene(new Level1());
+            SceneManager.AddGameScene(new Level1()); 
+            SceneManager.AddGameScene(new Archive());
 
             // Set Scene pertama
-            SceneManager.SetActiveScene("SplashScreen");
+            SceneManager.SetActiveScene("SplashScreen1");
             SceneManager.Initialize();
 
             base.Initialize();
@@ -127,6 +129,15 @@ namespace NursaRhythm
                     SceneManager.push.Play();
                     SceneManager.SetActiveScene("MainMenu");
                     SceneManager.ActiveScene.ResetScene();
+                }
+                else if (SceneManager.ActiveScene.SceneName == "Archive")
+                {
+                    if (SceneManager.ActiveScene.BackPressed())
+                    {
+                        SceneManager.push.Play();
+                        SceneManager.SetActiveScene("MainMenu");
+                        SceneManager.ActiveScene.ResetScene();
+                    }
                 }
                 else if (SceneManager.ActiveScene.SceneName == "LevelSelect")
                 {

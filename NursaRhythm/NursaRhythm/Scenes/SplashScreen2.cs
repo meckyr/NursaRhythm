@@ -1,15 +1,13 @@
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using NursaRhythm.Tools;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
 namespace NursaRhythm.Scenes
 {
-    class SplashScreen : GameScene
+    class SplashScreen2 : GameScene
     {
         private GameSprite bg;
 
@@ -17,8 +15,8 @@ namespace NursaRhythm.Scenes
         private int fadeIncrement = 20;
         private double fadeDelay = 2;
 
-        public SplashScreen()
-            : base("SplashScreen")
+        public SplashScreen2()
+            : base("SplashScreen2")
         {
         }
 

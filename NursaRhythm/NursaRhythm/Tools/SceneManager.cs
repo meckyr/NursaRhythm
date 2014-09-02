@@ -22,11 +22,10 @@ namespace NursaRhythm.Tools
 
         // kumpulan soundeffect
         public static SoundEffect push { get; private set; }
-        public static SoundEffect whoosh { get; private set; }
         public static SoundEffect pulse { get; private set; }
         public static SoundEffect pulse2 { get; private set; }
         public static SoundEffect sux { get; private set; }
-        public static SoundEffect ignition { get; private set; }
+        public static SoundEffect paper { get; private set; }
 
         // kumpulan music
         public static Song mainmusic;
@@ -43,7 +42,7 @@ namespace NursaRhythm.Tools
             RenderContext = new RenderContext();
 
             MediaPlayer.Volume = 1.0f;
-            SoundEffect.MasterVolume = 1.0f;
+            SoundEffect.MasterVolume = 0.1f;
         }
 
         public static void AddGameScene(GameScene gamescene)
@@ -134,11 +133,10 @@ namespace NursaRhythm.Tools
         public static void LoadContent(ContentManager contentmanager)
         {
             push = contentmanager.Load<SoundEffect>("sfx\\button");
-            whoosh = contentmanager.Load<SoundEffect>("sfx\\whoosh");
             pulse = contentmanager.Load<SoundEffect>("sfx\\pulse");
             pulse2 = contentmanager.Load<SoundEffect>("sfx\\pulse2");
             sux = contentmanager.Load<SoundEffect>("sfx\\sux");
-            ignition = contentmanager.Load<SoundEffect>("sfx\\ignition");
+            paper = contentmanager.Load<SoundEffect>("sfx\\paper");
 
             mainmusic = contentmanager.Load<Song>("song\\menu");
             levelmusic = contentmanager.Load<Song>("song\\level1");
@@ -171,6 +169,10 @@ namespace NursaRhythm.Tools
 
                     chosenscene = GameScenes.FirstOrDefault(scene =>
                         scene.SceneName.Equals("Level1"));
+                    chosenscene.Update(RenderContext, contentmanager);
+
+                    chosenscene = GameScenes.FirstOrDefault(scene =>
+                        scene.SceneName.Equals("Archive"));
                     chosenscene.Update(RenderContext, contentmanager);
 
                     IsInitialized = true;
