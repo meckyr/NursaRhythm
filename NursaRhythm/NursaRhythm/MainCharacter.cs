@@ -98,18 +98,18 @@ namespace NursaRhythm
             {
                 TouchPanel.EnabledGestures = GestureType.VerticalDrag;
 
+                Vector2 dragPos = Vector2.Zero;
+                Vector2 dragDelta = Vector2.Zero;
+
+                float oldPosition = body.LocalPosition.Y;
+                float nextPosition = 0f;
+
                 // check gesture
                 if (!TouchPanel.IsGestureAvailable)
                 {
                 }
                 else
                 {
-                    Vector2 dragPos = Vector2.Zero;
-                    Vector2 dragDelta = Vector2.Zero;
-
-                    float oldPosition = body.LocalPosition.Y;
-                    float nextPosition = 0f;
-
                     while (TouchPanel.IsGestureAvailable)
                     {
                         GestureSample gs = TouchPanel.ReadGesture();
@@ -120,18 +120,18 @@ namespace NursaRhythm
                                 dragDelta = gs.Delta;
                                 break;
                         }
+                    }
 
-                        if (dragPos.X <= 400)
-                        {
-                            nextPosition = oldPosition + (dragDelta.Y * MoveSpeed);
+                    if (dragPos.X <= 400)
+                    {
+                        nextPosition = oldPosition + (dragDelta.Y * MoveSpeed);
 
-                            if (nextPosition <= limitUp)
-                                nextPosition = limitUp;
-                            else if (nextPosition >=  limitDown)
-                                nextPosition = limitDown;
+                        if (nextPosition <= limitUp)
+                            nextPosition = limitUp;
+                        else if (nextPosition >= limitDown)
+                            nextPosition = limitDown;
 
-                            body.Translate(body.LocalPosition.X, nextPosition);
-                        }
+                        body.Translate(body.LocalPosition.X, nextPosition);
                     }
 
                     if (dragDelta.Y > 0)

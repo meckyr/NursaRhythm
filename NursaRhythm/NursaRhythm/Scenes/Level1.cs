@@ -275,6 +275,9 @@ namespace NursaRhythm.Scenes
 
                 if (isFailed)
                 {
+                    if (!failed.CanDraw)
+                        SceneManager.failed.Play();
+
                     failed.CanDraw = true;
                     next.CanDraw = true;
                     retry.CanDraw = true;
@@ -297,6 +300,9 @@ namespace NursaRhythm.Scenes
 
                 if (isFinished)
                 {
+                    if (!finished.CanDraw)
+                        SceneManager.finish.Play();
+
                     finished.CanDraw = true;
                     next.CanDraw = true;
                     retry.CanDraw = true;
@@ -417,14 +423,24 @@ namespace NursaRhythm.Scenes
         public void CheckScore()
         {
             if (star3.CurrentFrame != 11)
+            {
+                if (!star3.IsPlaying)
+                    SceneManager.star.Play();
+                
                 star3.PlayAnimation(false);
+            }
             else
                 star3.PauseAnimation();
 
-            if (score > 500 && star3.IsPaused)
+            if (score > 3000 && star3.IsPaused)
             {
                 if (star1.CurrentFrame != 11)
+                {
+                    if (!star1.IsPlaying)
+                        SceneManager.star.Play();
+
                     star1.PlayAnimation(false);
+                }
                 else
                     star1.PauseAnimation();
             }
@@ -434,10 +450,15 @@ namespace NursaRhythm.Scenes
                 note.Text = "One new MANDRAGUNA ARCHIVE \n                         unlocked!";
             }
 
-            if (score > 600 && star3.IsPaused && star1.IsPaused)
+            if (score > 6000 && star3.IsPaused && star1.IsPaused)
             {
                 if (star2.CurrentFrame != 11)
+                {
+                    if (!star2.IsPlaying)
+                        SceneManager.star.Play();
+
                     star2.PlayAnimation(false);
+                }
                 else
                 {
                     star2.PauseAnimation();

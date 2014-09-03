@@ -26,6 +26,9 @@ namespace NursaRhythm.Tools
         public static SoundEffect pulse2 { get; private set; }
         public static SoundEffect sux { get; private set; }
         public static SoundEffect paper { get; private set; }
+        public static SoundEffect star { get; private set; }
+        public static SoundEffect failed { get; private set; }
+        public static SoundEffect finish { get; private set; }
 
         // kumpulan music
         public static Song mainmusic;
@@ -137,6 +140,9 @@ namespace NursaRhythm.Tools
             pulse2 = contentmanager.Load<SoundEffect>("sfx\\pulse2");
             sux = contentmanager.Load<SoundEffect>("sfx\\sux");
             paper = contentmanager.Load<SoundEffect>("sfx\\paper");
+            star = contentmanager.Load<SoundEffect>("sfx\\star");
+            failed = contentmanager.Load<SoundEffect>("sfx\\failed");
+            finish = contentmanager.Load<SoundEffect>("sfx\\finish");
 
             mainmusic = contentmanager.Load<Song>("song\\menu");
             levelmusic = contentmanager.Load<Song>("song\\level1");
